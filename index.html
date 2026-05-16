@@ -1,50 +1,1064 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dizer — Investigación y estrategia en comunicación</title>
-  <meta name="description" content="Dizer — Investigación y estrategia en comunicación. Sitio en construcción.">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dizer — Investigación y estrategia en comunicación</title>
+<meta name="description" content="Investigación social, análisis de opinión pública y escucha digital para acompañar decisiones estratégicas basadas en evidencia real. Jujuy, NOA, Argentina." />
+<link rel="icon" type="image/png" href="assets/iso.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --teal-bright:#00ADB5;
+    --teal:#0D7377;
+    --teal-deep:#053D40;
+    --teal-50:#EAF6F5;
+    --teal-100:#D2EBE9;
+    --teal-200:#A7D5D2;
+    --ink:#15201F;
+    --ink-2:#384846;
+    --muted:#6A7A78;
+    --line:#D9D2C5;
+    --line-soft:#E9E3D5;
+    --cream:#F6F1E7;
+    --cream-2:#EFE9DB;
+    --paper:#FBF8F1;
+    --black:#0A0F0F;
+    --white:#FFFFFF;
+    --maxw:1280px;
+    --pad:clamp(20px, 4vw, 56px);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:'DM Sans', system-ui, sans-serif;font-size:17px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  ::selection{background:var(--teal);color:#fff}
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background-color: #f0f0f0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #333;
-    }
+  /* ───── Dark hero ───── */
+  .hero-dark .hero{background:var(--black);color:#fff}
+  .hero-dark .hero h1{color:#fff}
+  .hero-dark .hero h1 .em{color:var(--teal-bright)}
+  .hero-dark .hero-territory{color:rgba(255,255,255,.65)}
+  .hero-dark .hero-meta{border-color:rgba(255,255,255,.14)}
+  .hero-dark .hero-meta p{color:rgba(255,255,255,.7)}
+  .hero-dark .stat .num{color:var(--teal-bright)}
+  .hero-dark .stat .lab{color:rgba(255,255,255,.55)}
+  .hero-dark .hero-scroll{color:rgba(255,255,255,.45)}
+  .hero-dark .hero-scroll .line{background:rgba(255,255,255,.3)}
+  .hero-dark .hero::after{background-image:url("assets/iso-white.png");opacity:.06}
+  .hero-dark .hero .trama{opacity:.07;mix-blend-mode:screen}
+  .hero-dark .nav{background:rgba(10,15,15,.78);color:#fff}
+  .hero-dark .nav .brand-word{color:#fff}
+  .hero-dark .nav-cta{border-color:#fff;color:#fff}
+  .hero-dark .nav-cta:hover{background:#fff;color:var(--black)}
+  .hero-dark .nav-links{color:rgba(255,255,255,.7)}
+  .hero-dark .hamburger{color:#fff}
+  .hero-dark .nav-links a:hover,
+  .hero-dark .nav-links a.active{color:var(--teal-bright)}
+  .hero-dark .nav-links a.active::after{background:var(--teal-bright)}
 
-    .container {
-      text-align: center;
-      padding: 2rem;
-    }
+  /* ───── Layout primitives ───── */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+  .eyebrow{
+    font-family:'DM Sans';font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--teal);font-weight:500;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--teal)}
+  .section{padding:clamp(80px,10vw,140px) 0;position:relative}
+  .section + .section{border-top:1px solid var(--line)}
+  h1,h2,h3,h4{font-family:'DM Serif Display', Georgia, serif;font-weight:400;letter-spacing:-.01em;line-height:1.04;margin:0}
+  h2{font-size:clamp(40px,5.4vw,76px);text-wrap:balance}
+  h3{font-size:clamp(24px,2.2vw,32px);text-wrap:balance}
+  p{margin:0;text-wrap:pretty}
 
-    .logo {
-      max-width: 320px;
-      width: 90vw;
-      margin-bottom: 2.5rem;
-    }
+  /* ───── Nav ───── */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,248,241,.86);
+    backdrop-filter:saturate(140%) blur(10px);
+    -webkit-backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid transparent;
+    transition:border-color .2s ease, background .2s ease, color .2s ease;
+  }
+  .nav.scrolled{border-bottom-color:var(--line)}
+  .hero-dark .nav.scrolled{border-bottom-color:rgba(255,255,255,.14)}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:24px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand-iso{width:30px;height:auto;display:block}
+  .brand-word{
+    font-family:'DM Serif Display';font-size:24px;letter-spacing:-.01em;color:var(--ink);
+  }
+  .brand-word i{color:var(--teal)}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;color:var(--ink-2)}
+  .nav-links a{position:relative;padding:6px 0;transition:color .15s}
+  .nav-links a:hover{color:var(--teal)}
+  .nav-links a.active{color:var(--teal)}
+  .nav-links a.active::after{
+    content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--teal);
+  }
+  .nav-cta{
+    border:1px solid var(--ink);padding:10px 18px;border-radius:999px;
+    font-size:14px;display:inline-flex;align-items:center;gap:8px;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .nav-cta:hover{background:var(--ink);color:#fff}
+  .nav-cta .arr{transition:transform .2s}
+  .nav-cta:hover .arr{transform:translate(2px,-2px)}
+  .hamburger{display:none;border:0;background:transparent;cursor:pointer;padding:8px;color:var(--ink)}
+  .mobile-menu{display:none;flex-direction:column;padding:8px 0 24px;gap:4px;border-top:1px solid var(--line)}
+  .mobile-menu a{padding:14px 0;font-size:18px;border-bottom:1px solid var(--line)}
+  .mobile-menu a:last-of-type{border-bottom:0}
+  .nav.open .mobile-menu{display:flex}
+  @media (max-width:980px){
+    .nav-links,.nav-cta{display:none}
+    .hamburger{display:inline-grid;place-items:center}
+  }
 
-    .message {
-      font-size: 1.15rem;
-      color: #666;
-      letter-spacing: 0.04em;
-    }
-  </style>
+  /* ───── Hero ───── */
+  .hero{
+    position:relative;overflow:hidden;
+    padding:clamp(70px,10vw,140px) 0 clamp(60px,8vw,110px);
+    background:
+      radial-gradient(900px 500px at 110% -10%, rgba(0,173,181,.10), transparent 60%),
+      linear-gradient(180deg, var(--paper) 0%, var(--cream) 100%);
+    transition:background .3s ease, color .3s ease;
+  }
+  .hero .trama{
+    position:absolute;inset:-5% -10% -5% -10%;
+    background-image:url("assets/trama.png");
+    background-repeat:repeat-x;
+    background-position:center center;
+    background-size:auto 90%;
+    opacity:.18;
+    pointer-events:none;z-index:0;
+    transition:opacity .3s, mix-blend-mode .3s;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;right:-60px;top:50%;transform:translateY(-50%);
+    width:520px;height:520px;
+    background:url("assets/iso.png") center/contain no-repeat;
+    opacity:.05;pointer-events:none;z-index:0;
+    transition:opacity .3s;
+  }
+  @media (max-width:920px){.hero::after{width:340px;height:340px;right:-100px}}
+  .hero-grid{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:end;
+  }
+  @media (max-width:920px){.hero-grid{grid-template-columns:1fr;gap:40px}}
+  .hero h1{
+    font-family:'DM Serif Display';font-weight:400;
+    font-size:clamp(46px,7.4vw,108px);
+    line-height:1;letter-spacing:-.025em;
+    text-wrap:balance;
+  }
+  .hero h1 .em{color:var(--teal);font-style:italic}
+  .hero h1 .arr{
+    display:inline-block;transform:translateY(-.18em);
+    color:var(--teal);font-style:normal;font-size:.5em;margin-left:.05em;
+  }
+  .hero-territory{
+    display:flex;align-items:center;gap:14px;color:var(--ink-2);
+    font-size:14px;letter-spacing:.16em;text-transform:uppercase;margin-top:28px;
+  }
+  .hero-territory .dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  .hero-meta{
+    display:grid;gap:24px;
+    border-left:1px solid var(--line);
+    padding-left:32px;
+    transition:border-color .3s;
+  }
+  .hero-meta p{color:var(--ink-2);font-size:17px;transition:color .3s}
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
+  .stat .num{
+    font-family:'DM Serif Display';font-size:48px;color:var(--teal);line-height:1;
+    transition:color .3s;
+  }
+  .stat .lab{font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:.02em;transition:color .3s}
+  .hero-scroll{
+    margin-top:64px;display:flex;align-items:center;gap:14px;color:var(--muted);
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    position:relative;z-index:1;
+    transition:color .3s;
+  }
+  .hero-scroll .line{width:60px;height:1px;background:var(--muted);transition:background .3s}
+
+  /* ───── Section header ───── */
+  .sec-head{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:60px;
+  }
+  @media (max-width:820px){.sec-head{grid-template-columns:1fr;gap:18px}}
+  .sec-head .right{color:var(--ink-2);max-width:46ch}
+  .sec-num{
+    font-family:'DM Sans';font-size:13px;color:var(--teal);letter-spacing:.18em;
+    text-transform:uppercase;margin-bottom:18px;
+  }
+
+  /* ───── Quote stripe ───── */
+  .stripe{
+    background:var(--black);color:#fff;
+    padding:clamp(60px,8vw,110px) 0;
+    text-align:center;position:relative;overflow:hidden;
+  }
+  .stripe::before{
+    content:"";position:absolute;
+    width:380px;height:380px;left:8%;top:50%;transform:translateY(-50%);
+    background:url("assets/iso-white.png") center/contain no-repeat;
+    opacity:.05;pointer-events:none;
+  }
+  .stripe-quote{
+    font-family:'DM Serif Display';font-style:italic;
+    font-size:clamp(28px,3.6vw,48px);line-height:1.18;letter-spacing:-.01em;
+    max-width:920px;margin:0 auto;text-wrap:balance;
+    position:relative;
+  }
+  .stripe-quote em{color:var(--teal-bright);font-style:normal;font-weight:400}
+  .stripe-attr{
+    margin-top:24px;color:rgba(255,255,255,.55);font-size:13px;letter-spacing:.18em;
+    text-transform:uppercase;position:relative;
+  }
+
+  /* ───── Quiénes somos ───── */
+  .about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:start}
+  @media (max-width:920px){.about-grid{grid-template-columns:1fr}}
+  .about-lead{font-family:'DM Serif Display';font-size:clamp(26px,3vw,40px);line-height:1.18;letter-spacing:-.01em;text-wrap:balance}
+  .about-lead em{color:var(--teal);font-style:italic}
+  .about-body{display:grid;gap:18px;color:var(--ink-2);font-size:17px}
+  .values{
+    margin-top:64px;display:grid;grid-template-columns:repeat(5,1fr);
+    border-top:1px solid var(--line);
+  }
+  @media (max-width:920px){.values{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.values{grid-template-columns:1fr}}
+  .value{
+    padding:28px 24px 28px 0;border-right:1px solid var(--line);
+  }
+  .value:last-child{border-right:0;padding-right:0}
+  @media (max-width:920px){
+    .value:nth-child(2n){border-right:0;padding-right:0}
+    .value{padding-right:24px;border-bottom:1px solid var(--line)}
+    .value:nth-last-child(-n+1){border-bottom:0}
+  }
+  @media (max-width:560px){
+    .value{border-right:0;padding:24px 0;border-bottom:1px solid var(--line)}
+    .value:last-child{border-bottom:0}
+  }
+  .value .arr{font-family:'DM Serif Display';color:var(--teal);font-size:22px;font-style:italic;display:block;margin-bottom:10px}
+  .value h4{font-family:'DM Serif Display';font-size:19px;line-height:1.18;letter-spacing:-.005em}
+
+  /* ───── Equipo ───── */
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media (max-width:820px){.team-grid{grid-template-columns:1fr}}
+  .member{
+    background:var(--white);
+    border:1px solid var(--line);
+    padding:32px;
+    display:grid;grid-template-columns:140px 1fr;gap:28px;align-items:start;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  @media (max-width:540px){.member{grid-template-columns:1fr;gap:18px}}
+  .member:hover{
+    transform:translateY(-4px);
+    box-shadow:0 30px 60px -30px rgba(13,115,119,.25);
+    border-color:var(--teal);
+  }
+  .portrait{
+    width:140px;height:140px;border-radius:50%;
+    background:linear-gradient(135deg,var(--teal-bright),var(--teal-deep));
+    overflow:hidden;flex:0 0 auto;
+    box-shadow:0 8px 24px rgba(13,115,119,.25);
+    position:relative;
+  }
+  .portrait img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+  .member-body h3{font-size:26px;line-height:1.05}
+  .member-body .role{
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);
+    font-weight:500;margin-top:6px;
+  }
+  .member-body .bio{color:var(--ink-2);font-size:15px;margin-top:14px}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .badge{
+    font-size:11.5px;letter-spacing:.04em;
+    padding:5px 10px;border-radius:999px;
+    background:var(--teal-50);color:var(--teal-deep);
+    border:1px solid var(--teal-100);
+  }
+
+  /* ───── Servicios ───── */
+  .services{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line);border-left:1px solid var(--line);
+  }
+  @media (max-width:920px){.services{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:620px){.services{grid-template-columns:1fr}}
+  .service{
+    padding:36px;
+    border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--paper);position:relative;
+    transition:background .2s ease, color .2s ease;
+    min-height:280px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .service:hover{background:var(--teal);color:#fff}
+  .service:hover .s-num{color:rgba(255,255,255,.6)}
+  .service:hover .s-arrow{color:#fff;transform:translate(4px,-4px)}
+  .service:hover .s-desc{color:rgba(255,255,255,.85)}
+  .s-num{font-family:'DM Serif Display';font-style:italic;font-size:22px;color:var(--teal);transition:color .2s}
+  .s-mid{margin-top:48px}
+  .s-title{font-family:'DM Serif Display';font-size:26px;line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
+  .s-desc{font-size:14.5px;color:var(--ink-2);margin-top:14px;transition:color .2s}
+  .s-arrow{position:absolute;top:36px;right:36px;font-size:24px;color:var(--teal);transition:transform .25s, color .2s}
+
+  /* ───── Por qué Dizer ───── */
+  .why{background:var(--cream)}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+  @media (max-width:920px){.why-grid{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.why-grid{grid-template-columns:1fr}}
+  .why-card{padding:36px 28px 36px 0;border-right:1px solid var(--line)}
+  .why-card:last-child{border-right:0;padding-right:0}
+  @media (max-width:920px){
+    .why-card:nth-child(2){border-right:0;padding-right:0}
+    .why-card{padding-right:28px}
+  }
+  @media (max-width:560px){
+    .why-card{border-right:0;padding:28px 0;border-bottom:1px solid var(--line)}
+    .why-card:last-child{border-bottom:0}
+  }
+  .why-num{font-family:'DM Serif Display';font-size:64px;line-height:1;color:var(--teal)}
+  .why-card h4{font-family:'DM Serif Display';font-size:22px;margin:18px 0 8px;letter-spacing:-.005em}
+  .why-card p{color:var(--ink-2);font-size:15px}
+
+  /* ───── Informes ───── */
+  .reports-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+  .ig-link{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--teal);font-weight:500;font-size:14px;
+    padding-bottom:4px;border-bottom:1px solid var(--teal-200);
+  }
+  .ig-link .arr{transition:transform .2s}
+  .ig-link:hover .arr{transform:translate(3px,-3px)}
+  .reports{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  @media (max-width:740px){.reports{grid-template-columns:1fr}}
+  .report{
+    background:var(--white);border:1px solid var(--line);
+    padding:32px 28px;display:flex;flex-direction:column;gap:14px;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    position:relative;
+  }
+  .report::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--teal);transform:scaleY(0);transform-origin:top;
+    transition:transform .3s ease;
+  }
+  .report:hover{transform:translateY(-4px);box-shadow:0 30px 60px -30px rgba(13,115,119,.25);border-color:var(--teal-100)}
+  .report:hover::before{transform:scaleY(1)}
+  .report-tag{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+  .report h3{font-size:24px;line-height:1.15}
+  .report-meta{display:flex;gap:14px;color:var(--muted);font-size:13px;letter-spacing:.02em}
+  .report-meta .dot{width:4px;height:4px;border-radius:50%;background:var(--muted);align-self:center}
+  .report p.desc{color:var(--ink-2);font-size:15px;flex:1}
+  .report-link{
+    display:inline-flex;align-items:center;gap:8px;color:var(--teal);font-weight:500;font-size:14px;
+    border-top:1px solid var(--line);padding-top:14px;margin-top:6px;
+  }
+  .report-link .arr{transition:transform .2s}
+  .report:hover .report-link .arr{transform:translate(3px,-3px)}
+
+  /* ───── Panel ciudadano ───── */
+  .panel{
+    background:linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 70%, var(--teal-bright) 130%);
+    color:#fff;position:relative;overflow:hidden;
+  }
+  .panel::before{
+    content:"";position:absolute;
+    right:-120px;top:50%;transform:translateY(-50%);
+    width:680px;height:680px;
+    background:url("assets/iso-white.png") center/contain no-repeat;
+    opacity:.06;pointer-events:none;
+  }
+  .panel .wrap{position:relative}
+  .panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  @media (max-width:920px){.panel-grid{grid-template-columns:1fr;gap:48px}}
+  .panel h2{color:#fff}
+  .panel .lead{font-family:'DM Serif Display';font-size:clamp(28px,3.4vw,46px);line-height:1.14;letter-spacing:-.01em;text-wrap:balance}
+  .panel .lead em{color:#fff;font-style:italic;border-bottom:2px solid rgba(255,255,255,.45)}
+  .panel-meta{margin-top:28px;color:rgba(255,255,255,.78);font-size:16px;max-width:44ch}
+  .panel-reward{
+    display:inline-flex;align-items:center;gap:10px;margin-top:24px;
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);
+    padding:10px 16px;border-radius:999px;
+    font-size:13px;letter-spacing:.04em;color:#fff;
+  }
+  .panel-reward .arr{color:var(--teal-bright);background:#fff;width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px}
+  .form{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.14);
+    padding:36px;display:grid;gap:18px;
+    backdrop-filter:blur(6px);
+  }
+  .form-row{display:grid;gap:8px}
+  .form label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+  .form input, .form select, .form textarea{
+    background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.25);
+    color:#fff;font:inherit;font-size:17px;padding:10px 0;outline:none;
+    transition:border-color .2s;border-radius:0;
+  }
+  .form input:focus, .form select:focus, .form textarea:focus{border-bottom-color:#fff}
+  .form input::placeholder, .form textarea::placeholder{color:rgba(255,255,255,.4)}
+  .form select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23ffffff' stroke-width='1.4' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 4px center;background-size:12px}
+  .form select option{color:var(--ink);background:#fff}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:560px){.form-grid{grid-template-columns:1fr}}
+  .btn-submit{
+    margin-top:8px;background:#fff;color:var(--teal-deep);
+    border:0;cursor:pointer;padding:18px 24px;font:inherit;font-weight:500;font-size:15px;
+    display:inline-flex;align-items:center;justify-content:space-between;gap:12px;
+    transition:background .2s, color .2s;width:100%;
+  }
+  .btn-submit:hover{background:var(--teal-100)}
+  .btn-submit .arr{transition:transform .2s}
+  .btn-submit:hover .arr{transform:translate(3px,-3px)}
+  .form-error{font-size:12px;color:#FFB4A8;min-height:14px}
+  .form-success{
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);
+    color:#fff;padding:16px;font-size:14.5px;
+    display:none;align-items:center;gap:12px;
+  }
+  .form-success.show{display:flex}
+  .panel-note{font-size:12px;color:rgba(255,255,255,.55);margin-top:8px}
+
+  /* ───── Prensa ───── */
+  .press-list{display:grid;border-top:1px solid var(--line)}
+  .press-item{
+    display:grid;grid-template-columns:160px 1fr auto;gap:32px;align-items:baseline;
+    padding:28px 0;border-bottom:1px solid var(--line);
+    transition:padding-left .2s ease;cursor:pointer;
+  }
+  .press-item:hover{padding-left:12px}
+  @media (max-width:680px){
+    .press-item{grid-template-columns:1fr auto;gap:8px;padding:24px 0}
+    .press-outlet{order:-1;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+    .press-arr{order:-1;justify-self:end}
+  }
+  .press-outlet{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+  .press-body h3{font-size:22px;line-height:1.18}
+  .press-date{color:var(--muted);font-size:13px;margin-top:6px}
+  .press-arr{font-size:20px;color:var(--ink);transition:transform .25s,color .2s}
+  .press-item:hover .press-arr{transform:translate(4px,-4px);color:var(--teal)}
+
+  /* ───── Contacto ───── */
+  .contact{background:var(--cream-2)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  @media (max-width:920px){.contact-grid{grid-template-columns:1fr;gap:48px}}
+  .contact .form{background:var(--white);border:1px solid var(--line);color:var(--ink);backdrop-filter:none}
+  .contact .form label{color:var(--muted)}
+  .contact .form input, .contact .form select, .contact .form textarea{color:var(--ink);border-bottom-color:var(--line)}
+  .contact .form input:focus, .contact .form select:focus, .contact .form textarea:focus{border-bottom-color:var(--teal)}
+  .contact .form input::placeholder, .contact .form textarea::placeholder{color:#A8A293}
+  .contact .form select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%230D7377' stroke-width='1.4' fill='none'/></svg>")}
+  .contact .btn-submit{background:var(--teal);color:#fff}
+  .contact .btn-submit:hover{background:var(--teal-deep)}
+  .contact .form-success{background:var(--teal-50);color:var(--teal-deep);border-color:var(--teal-100)}
+  .contact-info{display:grid;gap:36px}
+  .contact-info h2{margin-bottom:12px}
+  .contact-info .desc{color:var(--ink-2);max-width:42ch;font-size:17px}
+  .contact-block h4{font-family:'DM Sans';font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:10px}
+  .contact-block .big{font-family:'DM Serif Display';font-size:26px}
+  .contact-block .row{display:flex;align-items:center;gap:10px;color:var(--ink)}
+  .socials{display:flex;flex-wrap:wrap;gap:10px}
+  .social{
+    border:1px solid var(--ink);padding:10px 16px;border-radius:999px;font-size:14px;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:background .15s,color .15s;
+  }
+  .social:hover{background:var(--ink);color:#fff}
+  .social .arr{transition:transform .2s}
+  .social:hover .arr{transform:translate(2px,-2px)}
+
+  /* ───── Footer ───── */
+  footer{
+    background:var(--black);color:rgba(255,255,255,.82);
+    padding:80px 0 32px;position:relative;overflow:hidden;
+  }
+  footer::before{
+    content:"";position:absolute;
+    right:-100px;bottom:-260px;
+    width:560px;height:560px;
+    background:url("assets/iso-white.png") center/contain no-repeat;
+    opacity:.04;pointer-events:none;
+  }
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;position:relative}
+  @media (max-width:820px){.foot-grid{grid-template-columns:1fr 1fr;gap:36px}}
+  @media (max-width:520px){.foot-grid{grid-template-columns:1fr}}
+  .foot-brand img{height:42px;width:auto;filter:brightness(0) invert(1)}
+  .foot-brand p{margin-top:18px;color:rgba(255,255,255,.65);max-width:32ch;font-size:14.5px}
+  .foot-col h5{
+    font-family:'DM Sans';font-size:11.5px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--teal-200);margin:0 0 16px;
+  }
+  .foot-col a, .foot-col p{display:block;color:rgba(255,255,255,.75);font-size:14.5px;padding:4px 0}
+  .foot-col a:hover{color:var(--teal-bright)}
+  .foot-bottom{
+    margin-top:64px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+    font-size:13px;color:rgba(255,255,255,.55);position:relative;
+  }
+
+  /* ───── Reveal animation ───── */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
 </head>
-<body>
-  <div class="container">
-    <img src="logo.png" alt="Dizer — Investigación y estrategia en comunicación" class="logo">
-    <p class="message">Sitio en construcción</p>
+<body class="hero-dark">
+
+<!-- ═══════════ NAV ═══════════ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="#top" aria-label="Dizer — Inicio">
+      <img class="brand-iso" src="assets/iso.png" alt="" />
+      <span class="brand-word">Dizer<i>.</i></span>
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#quienes">Quiénes somos</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#informes">Informes</a>
+      <a href="#prensa">Prensa</a>
+    </nav>
+    <a href="#contacto" class="nav-cta">Contacto <span class="arr">↗</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+      <svg width="22" height="14" viewBox="0 0 22 14" fill="none"><path d="M1 1h20M1 7h20M1 13h20" stroke="currentColor" stroke-width="1.5"/></svg>
+    </button>
   </div>
+  <div class="wrap mobile-menu" id="mobileMenu">
+    <a href="#quienes">Quiénes somos</a>
+    <a href="#equipo">Equipo</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#informes">Informes</a>
+    <a href="#prensa">Prensa</a>
+    <a href="#contacto">Contacto ↗</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ═══════════ 1. HERO ═══════════ -->
+  <section class="hero">
+    <div class="trama" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <h1>
+          Investigamos<br/>
+          lo que la <span class="em">sociedad</span><br/>
+          tiene para decir.<span class="arr">↗</span>
+        </h1>
+        <div class="hero-territory">
+          <span class="dot"></span>
+          <span>Jujuy · NOA · Argentina</span>
+        </div>
+      </div>
+      <aside class="hero-meta">
+        <p>Combinamos investigación social, análisis de opinión pública y escucha digital para acompañar decisiones estratégicas basadas en evidencia real.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="num">2</div><div class="lab">trayectorias, una mirada propia</div></div>
+          <div class="stat"><div class="num">NOA</div><div class="lab">como territorio de trabajo</div></div>
+        </div>
+      </aside>
+    </div>
+    <div class="wrap hero-scroll"><span class="line"></span><span>Explorar</span></div>
+  </section>
+
+  <!-- ═══════════ 2. QUIÉNES SOMOS ═══════════ -->
+  <section class="section" id="quienes">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="sec-num">02 — Quiénes somos</div>
+          <h2>Dos trayectorias.<br/>Una mirada propia.<span style="color:var(--teal)"> ↗</span></h2>
+        </div>
+        <div class="right">
+          <span class="eyebrow">Identidad</span>
+          <p style="margin-top:14px">Dizer nació de la convergencia de dos trayectorias en comunicación, investigación social y análisis político.</p>
+        </div>
+      </div>
+      <div class="about-grid reveal">
+        <p class="about-lead">
+          Trabajamos en Jujuy hace años, con una lectura <em>crítica y aguda</em> de la realidad local — desde adentro, no desde un escritorio en Buenos Aires.
+        </p>
+        <div class="about-body">
+          <p>Integramos investigación y estrategia para comprender escenarios comunicacionales complejos y acompañar decisiones con sentido. Conocemos el NOA no solo desde los datos: también desde la experiencia de haberlo habitado y de seguir haciéndolo.</p>
+          <p>Trabajamos junto a un equipo de profesionales en comunicación e investigación social que participan en cada estudio, análisis y estrategia que desarrollamos.</p>
+        </div>
+      </div>
+
+      <div class="values reveal">
+        <div class="value"><span class="arr">↗</span><h4>Escuchamos antes de hablar.</h4></div>
+        <div class="value"><span class="arr">↗</span><h4>Leemos el territorio desde adentro.</h4></div>
+        <div class="value"><span class="arr">↗</span><h4>Construimos sobre evidencia.</h4></div>
+        <div class="value"><span class="arr">↗</span><h4>Integramos lo cuantitativo y lo humano.</h4></div>
+        <div class="value"><span class="arr">↗</span><h4>Decimos lo que vemos, aunque incomode.</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ QUOTE STRIPE ═══════════ -->
+  <div class="stripe">
+    <div class="wrap">
+      <p class="stripe-quote">"La información no es poder si no se convierte en <em>decisión inteligente.</em>"</p>
+      <div class="stripe-attr">— Premisa de trabajo</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 3. EQUIPO ═══════════ -->
+  <section class="section" id="equipo">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="sec-num">03 — El equipo</div>
+          <h2>Las personas detrás<br/>de cada análisis.<span style="color:var(--teal)"> ↗</span></h2>
+        </div>
+        <div class="right">
+          <span class="eyebrow">Interdisciplinario</span>
+          <p style="margin-top:14px">Comunicación política y análisis comunicacional — formación rigurosa y trabajo conjunto en el NOA.</p>
+        </div>
+      </div>
+
+      <div class="team-grid">
+        <article class="member reveal">
+          <div class="portrait"><img src="assets/sebastian.png" alt="Sebastián Altamirano" /></div>
+          <div class="member-body">
+            <h3>Sebastián Altamirano</h3>
+            <div class="role">Estrategia política y comunicación</div>
+            <p class="bio">Especialista en Comunicación Política (UNR). Consultor, docente universitario de posgrado y director de campañas electorales en la provincia. Años coordinando estrategias de comunicación gubernamental y análisis de opinión pública: traduce datos en decisiones.</p>
+            <div class="badges">
+              <span class="badge">Comunicación política</span>
+              <span class="badge">Campañas electorales</span>
+              <span class="badge">Opinión pública</span>
+              <span class="badge">Estrategia</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="member reveal">
+          <div class="portrait"><img src="assets/lucia.jpg" alt="Lucía Scalone" /></div>
+          <div class="member-body">
+            <h3>Lucía Scalone</h3>
+            <div class="role">Investigación y análisis comunicacional</div>
+            <p class="bio">Doctora en Humanidades, área Comunicación (UNT). Investigadora y docente universitaria especializada en metodología de la investigación y análisis comunicacional. Su expertise en visualización de datos convierte hallazgos complejos en lecturas claras, precisas y accionables.</p>
+            <div class="badges">
+              <span class="badge">Metodología</span>
+              <span class="badge">Análisis cualitativo</span>
+              <span class="badge">Visualización de datos</span>
+              <span class="badge">Investigación</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 4. SERVICIOS ═══════════ -->
+  <section class="section" id="servicios">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="sec-num">04 — Servicios</div>
+          <h2>Lo que hacemos,<br/>y cómo lo hacemos.<span style="color:var(--teal)"> ↗</span></h2>
+        </div>
+        <div class="right">
+          <span class="eyebrow">Seis líneas de trabajo</span>
+          <p style="margin-top:14px">Cada proyecto empieza con una pregunta real. Construimos la metodología, el análisis y la estrategia para responderla.</p>
+        </div>
+      </div>
+
+      <div class="services reveal">
+        <article class="service">
+          <div class="s-num">01</div><span class="s-arrow">↗</span>
+          <div class="s-mid">
+            <div class="s-title">Social Listening y análisis de sentimiento</div>
+            <p class="s-desc">Monitoreo de conversaciones digitales para identificar tendencias, percepciones y narrativas sobre temas, candidatos o instituciones — en tiempo real.</p>
+          </div>
+        </article>
+        <article class="service">
+          <div class="s-num">02</div><span class="s-arrow">↗</span>
+          <div class="s-mid">
+            <div class="s-title">Investigación de opinión pública</div>
+            <p class="s-desc">Diseño y ejecución de estudios cuantitativos y cualitativos — encuestas, grupos focales y entrevistas — adaptados al contexto local y regional.</p>
+          </div>
+        </article>
+        <article class="service">
+          <div class="s-num">03</div><span class="s-arrow">↗</span>
+          <div class="s-mid">
+            <div class="s-title">Estrategia de comunicación</div>
+            <p class="s-desc">Estrategias basadas en evidencia para campañas, gobiernos, organizaciones e instituciones que necesitan posicionarse con claridad.</p>
+          </div>
+        </article>
+        <article class="service">
+          <div class="s-num">04</div><span class="s-arrow">↗</span>
+          <div class="s-mid">
+            <div class="s-title">Análisis de coyuntura política y social</div>
+            <p class="s-desc">Lecturas periódicas del clima social, político y comunicacional en Jujuy y el NOA para equipos de gestión, campañas y organizaciones.</p>
+          </div>
+        </article>
+        <article class="service">
+          <div class="s-num">05</div><span class="s-arrow">↗</span>
+          <div class="s-mid">
+            <div class="s-title">Consultoría en campañas electorales</div>
+            <p class="s-desc">Acompañamiento a equipos políticos en el diseño y coordinación estratégica de campañas — desde el diagnóstico hasta el cierre electoral.</p>
+          </div>
+        </article>
+        <article class="service">
+          <div class="s-num">06</div><span class="s-arrow">↗</span>
+          <div class="s-mid">
+            <div class="s-title">Visualización e informes ejecutivos</div>
+            <p class="s-desc">Transformamos investigación en informes claros, visuales y accionables para quienes toman decisiones sin tiempo para leer cien páginas.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 5. POR QUÉ DIZER ═══════════ -->
+  <section class="section why" id="porque">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="sec-num">05 — Por qué Dizer</div>
+          <h2>Lo que nos<br/>hace distintos.<span style="color:var(--teal)"> ↗</span></h2>
+        </div>
+        <div class="right">
+          <span class="eyebrow">Diferenciales reales</span>
+          <p style="margin-top:14px">No somos una consultora que llega desde afuera a analizar el territorio. Somos parte de él. Y eso cambia todo.</p>
+        </div>
+      </div>
+      <div class="why-grid reveal">
+        <div class="why-card">
+          <div class="why-num">01</div>
+          <h4>Territorio propio</h4>
+          <p>Vivimos y trabajamos en Jujuy hace años. Nuestra lectura de la realidad local es crítica, aguda y contextualizada.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-num">02</div>
+          <h4>Social Listening como ventaja</h4>
+          <p>Somos referentes en análisis de sentimiento digital en la región, una capacidad que pocas consultoras locales tienen desarrollada.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-num">03</div>
+          <h4>Profundidad cualitativa</h4>
+          <p>Nuestra fortaleza está en comprender el por qué detrás de los datos. No nos quedamos en el número: buscamos el sentido.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-num">04</div>
+          <h4>Doble formación</h4>
+          <p>Experiencia en campañas reales combinada con rigor metodológico académico — análisis a la vez estratégicos y sólidos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 6. INFORMES ═══════════ -->
+  <section class="section" id="informes">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="sec-num">06 — Informes</div>
+          <h2>Producción reciente<br/>y análisis de coyuntura.<span style="color:var(--teal)"> ↗</span></h2>
+        </div>
+        <div class="right">
+          <span class="eyebrow">Publicaciones</span>
+          <p style="margin-top:14px">Una selección de informes recientes publicados por el equipo. Disponibles para consulta en nuestras redes.</p>
+        </div>
+      </div>
+
+      <div class="reports-head reveal">
+        <span class="sec-num" style="margin:0">Selección 2025</span>
+        <a class="ig-link" href="https://www.instagram.com/dizer.consultora/" target="_blank" rel="noopener">Ver todos en Instagram <span class="arr">↗</span></a>
+      </div>
+
+      <div class="reports">
+        <a class="report reveal" href="https://www.instagram.com/p/DWFG4Ltlf0n/?img_index=1" target="_blank" rel="noopener">
+          <div class="report-tag">Seguridad · Social Listening</div>
+          <h3>La Policía de Jujuy en tensión.</h3>
+          <div class="report-meta"><span>2025</span><span class="dot"></span><span>Análisis digital</span></div>
+          <p class="desc">Análisis de sentimiento digital sobre la percepción ciudadana en torno a la institución policial en la provincia.</p>
+          <span class="report-link">Ver informe <span class="arr">↗</span></span>
+        </a>
+        <a class="report reveal" href="https://www.instagram.com/p/DW1dtCtFcKH/?img_index=1" target="_blank" rel="noopener">
+          <div class="report-tag">Territorio · Opinión pública</div>
+          <h3>Alto Comedero ¿City?</h3>
+          <div class="report-meta"><span>2025</span><span class="dot"></span><span>Lectura territorial</span></div>
+          <p class="desc">Identidad, crecimiento urbano y expectativas en uno de los barrios más poblados de Jujuy.</p>
+          <span class="report-link">Ver informe <span class="arr">↗</span></span>
+        </a>
+        <a class="report reveal" href="https://www.instagram.com/p/DXPssKNlYnT/?img_index=1" target="_blank" rel="noopener">
+          <div class="report-tag">Economía · Gestión pública</div>
+          <h3>Bono de $100 mil para trabajadores estatales.</h3>
+          <div class="report-meta"><span>2025</span><span class="dot"></span><span>Reacción en redes</span></div>
+          <p class="desc">Cómo respondieron las redes sociales frente al anuncio del bono para el sector público provincial.</p>
+          <span class="report-link">Ver informe <span class="arr">↗</span></span>
+        </a>
+        <a class="report reveal" href="https://www.instagram.com/p/DYXPpx8FdfN/?img_index=1" target="_blank" rel="noopener">
+          <div class="report-tag">Educación · Análisis digital</div>
+          <h3>La marcha universitaria en redes.</h3>
+          <div class="report-meta"><span>2025</span><span class="dot"></span><span>Antes, durante, después</span></div>
+          <p class="desc">Qué se dijo y cómo se dijo en las plataformas digitales antes, durante y después de la marcha universitaria.</p>
+          <span class="report-link">Ver informe <span class="arr">↗</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 7. PANEL CIUDADANO ═══════════ -->
+  <section class="section panel" id="panel">
+    <div class="wrap">
+      <div class="panel-grid">
+        <div class="reveal">
+          <div class="sec-num" style="color:rgba(255,255,255,.75)">07 — Comunidad Dizer</div>
+          <p class="lead">Tu opinión <em>construye conocimiento.</em></p>
+          <p class="panel-meta">Estamos conformando una red de ciudadanas y ciudadanos del NOA dispuestos a participar en encuestas y estudios sobre temas que hacen a la vida cotidiana, la política y el futuro de la región. Tu voz es la materia prima de nuestro trabajo.</p>
+          <span class="panel-reward"><span class="arr">↗</span><span>La participación incluye recompensas e incentivos para quienes se sumen.</span></span>
+        </div>
+
+        <form class="form reveal" id="panelForm" novalidate>
+          <div class="form-row">
+            <label for="p-name">Nombre</label>
+            <input id="p-name" name="name" type="text" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-row">
+            <label for="p-email">Email</label>
+            <input id="p-email" name="email" type="email" placeholder="tucorreo@ejemplo.com" required />
+          </div>
+          <div class="form-row">
+            <label for="p-loc">Localidad</label>
+            <input id="p-loc" name="loc" type="text" placeholder="Ciudad, provincia" required />
+          </div>
+          <div class="form-error" id="panelError"></div>
+          <button type="submit" class="btn-submit">
+            <span>Quiero participar</span><span class="arr">↗</span>
+          </button>
+          <div class="form-success" id="panelSuccess">
+            <span class="arr">↗</span><span>¡Gracias! Te escribimos cuando tengamos un estudio para vos.</span>
+          </div>
+          <p class="panel-note">Sin spam. Participación voluntaria. Podés darte de baja cuando quieras.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 8. PRENSA ═══════════ -->
+  <section class="section" id="prensa">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="sec-num">08 — Prensa</div>
+          <h2>Dizer en la<br/>conversación pública.<span style="color:var(--teal)"> ↗</span></h2>
+        </div>
+        <div class="right">
+          <span class="eyebrow">En los medios</span>
+          <p style="margin-top:14px">Una selección de entrevistas, columnas y participaciones recientes en medios del NOA.</p>
+        </div>
+      </div>
+      <div class="press-list reveal">
+        <a class="press-item" href="https://www.instagram.com/reel/DWkTCbBjiPd/" target="_blank" rel="noopener">
+          <span class="press-outlet">Radio UCSE · Jujuy</span>
+          <div class="press-body">
+            <h3>Social listening y opinión pública: qué mide Dizer y para qué.</h3>
+            <div class="press-date">2025 · Entrevista</div>
+          </div>
+          <span class="press-arr">↗</span>
+        </a>
+        <a class="press-item" href="https://www.instagram.com/reel/DXWygUajj1W/" target="_blank" rel="noopener">
+          <span class="press-outlet">Coya TV Streaming</span>
+          <div class="press-body">
+            <h3>Cómo se mide el clima social en Jujuy: metodologías y hallazgos.</h3>
+            <div class="press-date">2025 · Entrevista</div>
+          </div>
+          <span class="press-arr">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 9. CONTACTO ═══════════ -->
+  <section class="section contact" id="contacto">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div>
+            <div class="sec-num">09 — Contacto</div>
+            <h2>Trabajemos<br/>juntos.<span style="color:var(--teal)"> ↗</span></h2>
+            <p class="desc" style="margin-top:18px">Cada conversación empieza con una pregunta. ¿Cuál es la tuya? Contanos en qué estás trabajando y vemos cómo podemos acompañarte.</p>
+          </div>
+          <div class="contact-block">
+            <h4>Email directo</h4>
+            <a class="big" href="mailto:dizer.consultora@gmail.com">dizer.consultora@gmail.com</a>
+          </div>
+          <div class="contact-block">
+            <h4>Sede</h4>
+            <div class="row">San Salvador de Jujuy · Argentina</div>
+          </div>
+          <div class="contact-block">
+            <h4>Redes</h4>
+            <div class="socials">
+              <a href="https://www.instagram.com/dizer.consultora/" target="_blank" rel="noopener" class="social">Instagram <span class="arr">↗</span></a>
+              <a href="https://www.facebook.com/profile.php?id=61579550200610" target="_blank" rel="noopener" class="social">Facebook <span class="arr">↗</span></a>
+              <a href="mailto:dizer.consultora@gmail.com" class="social">Email <span class="arr">↗</span></a>
+            </div>
+          </div>
+        </div>
+
+        <form class="form reveal" id="contactForm" novalidate>
+          <div class="form-row">
+            <label for="c-name">Nombre y apellido</label>
+            <input id="c-name" name="name" type="text" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-row">
+            <label for="c-email">Email</label>
+            <input id="c-email" name="email" type="email" placeholder="tucorreo@ejemplo.com" required />
+          </div>
+          <div class="form-row">
+            <label for="c-org">Tipo de organización</label>
+            <select id="c-org" name="org" required>
+              <option value="" disabled selected>Seleccioná una opción</option>
+              <option value="publica">Institución pública</option>
+              <option value="privada">Organización privada</option>
+              <option value="ong">Organización social o civil</option>
+              <option value="politico">Espacio político / campaña</option>
+              <option value="medio">Medio de comunicación</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="c-msg">¿En qué podemos ayudarte?</label>
+            <textarea id="c-msg" name="msg" rows="4" placeholder="Contanos brevemente qué necesitás o qué pregunta querés responder…" required></textarea>
+          </div>
+          <div class="form-error" id="contactError"></div>
+          <button type="submit" class="btn-submit">
+            <span>Enviar consulta</span><span class="arr">↗</span>
+          </button>
+          <div class="form-success" id="contactSuccess">
+            <span class="arr">↗</span><span>Mensaje recibido. Te respondemos pronto.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="assets/logo.png" alt="Dizer — Investigación y estrategia en comunicación" />
+        <p>Investigación social y estrategia en comunicación, desde Jujuy hacia el NOA y la Argentina.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Navegación</h5>
+        <a href="#quienes">Quiénes somos</a>
+        <a href="#equipo">Equipo</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#informes">Informes</a>
+        <a href="#prensa">Prensa</a>
+      </div>
+      <div class="foot-col">
+        <h5>Contacto</h5>
+        <a href="mailto:dizer.consultora@gmail.com">dizer.consultora@gmail.com</a>
+        <p>San Salvador de Jujuy</p>
+        <p>Argentina</p>
+      </div>
+      <div class="foot-col">
+        <h5>Redes</h5>
+        <a href="https://www.instagram.com/dizer.consultora/" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="https://www.facebook.com/profile.php?id=61579550200610" target="_blank" rel="noopener">Facebook ↗</a>
+        <a href="mailto:dizer.consultora@gmail.com">Email ↗</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Dizer — Investigación y estrategia en comunicación.</span>
+      <span>dizer.ar · Hecho en Jujuy · NOA</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // — sticky nav border on scroll
+  const nav = document.getElementById('nav');
+  const setScrolled = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  setScrolled();
+  window.addEventListener('scroll', setScrolled, {passive:true});
+
+  // — mobile menu
+  const ham = document.getElementById('hamburger');
+  ham.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('#mobileMenu a').forEach(a =>
+    a.addEventListener('click', () => nav.classList.remove('open'))
+  );
+
+  // — scroll-spy
+  const sections = ['quienes','equipo','servicios','informes','prensa','contacto']
+    .map(id => ({id, el:document.getElementById(id)})).filter(x => x.el);
+  const linkFor = id => document.querySelector(`.nav-links a[href="#${id}"]`);
+  const spy = () => {
+    const y = window.scrollY + 120;
+    let current = null;
+    sections.forEach(({id,el}) => { if (el.offsetTop <= y) current = id; });
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    if (current && linkFor(current)) linkFor(current).classList.add('active');
+  };
+  spy();
+  window.addEventListener('scroll', spy, {passive:true});
+
+  // — reveal on intersection
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // — Form validation helper
+  const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  const wireForm = (formId, errId, okId, rules) => {
+    const form = document.getElementById(formId);
+    const err = document.getElementById(errId);
+    const ok = document.getElementById(okId);
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      err.textContent = '';
+      ok.classList.remove('show');
+      for (const r of rules) {
+        const v = form.elements[r.name].value.trim();
+        if (r.required && !v) { err.textContent = `Completá el campo: ${r.label}.`; form.elements[r.name].focus(); return; }
+        if (r.email && !isEmail(v)) { err.textContent = `Email inválido.`; form.elements[r.name].focus(); return; }
+      }
+      ok.classList.add('show');
+      form.reset();
+    });
+  };
+  wireForm('panelForm','panelError','panelSuccess',[
+    {name:'name',label:'Nombre',required:true},
+    {name:'email',label:'Email',required:true,email:true},
+    {name:'loc',label:'Localidad',required:true},
+  ]);
+  wireForm('contactForm','contactError','contactSuccess',[
+    {name:'name',label:'Nombre',required:true},
+    {name:'email',label:'Email',required:true,email:true},
+    {name:'org',label:'Tipo de organización',required:true},
+    {name:'msg',label:'Mensaje',required:true},
+  ]);
+</script>
+
 </body>
 </html>
