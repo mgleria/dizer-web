@@ -242,6 +242,7 @@
   .value{
     padding:28px 36px 28px 0;border-right:1px solid var(--line);
   }
+  .value + .value{padding-left:36px}
   .value:last-child{border-right:0;padding-right:0}
   @media (max-width:920px){
     .value:nth-child(2n){border-right:0;padding-right:0}
@@ -250,6 +251,7 @@
   }
   @media (max-width:560px){
     .value{border-right:0;padding:24px 0;border-bottom:1px solid var(--line)}
+    .value + .value{padding-left:0}
     .value:last-child{border-bottom:0}
   }
   .value .arr{font-family:'DM Serif Display';color:var(--teal);font-size:22px;font-style:italic;display:block;margin-bottom:10px}
@@ -324,6 +326,7 @@
   @media (max-width:920px){.why-grid{grid-template-columns:1fr 1fr}}
   @media (max-width:560px){.why-grid{grid-template-columns:1fr}}
   .why-card{padding:36px 44px 36px 0;border-right:1px solid var(--line)}
+  .why-card + .why-card{padding-left:44px}
   .why-card:last-child{border-right:0;padding-right:0}
   @media (max-width:920px){
     .why-card:nth-child(2){border-right:0;padding-right:0}
@@ -331,6 +334,7 @@
   }
   @media (max-width:560px){
     .why-card{border-right:0;padding:28px 0;border-bottom:1px solid var(--line)}
+    .why-card + .why-card{padding-left:0}
     .why-card:last-child{border-bottom:0}
   }
   .why-num{font-family:'DM Serif Display';font-size:64px;line-height:1;color:var(--teal)}
